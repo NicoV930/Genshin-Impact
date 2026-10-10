@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>Genshin Impact</title>
+    <style>
+        @font-face{
+            font-family: Tele;
+            src: url(sources/Teletactile.ttf);
+        }
+        body{
+            background-image: url(sources/fondogen.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100vh;
+            background-attachment: fixed;
+            margin: 0;
+        }
+        header,footer{
+            display: flex;
+            background-color: aliceblue;
+            font-family: Tele;
+            align-items: center;
+            padding: 15px 50px;
+        }
+        .elemental{
+            align-items: center;
+        }
+        main{
+            margin-right: 50px;
+        }
+        .fila{
+            display: flex;
+            align-items:center;
+        }
+        .Pulsar{
+            margin-left: 1000px;
+        }
+        img{
+            width: 200px;
+            margin-right: 25px;
+        }
+
+        h1,h2{
+            margin: 0;
+            text-align: center;
+        }
+        main{
+            margin:50px 20%;
+            background-color: aliceblue;
+            border-radius: 20px;
+            padding: 50px;
+            min-height: calc(100vh - 92px - 80px - 100px);
+        }
+        article{
+            background-color: rgba(113, 151, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            margin:20px;
+        }
+        iframe{
+            width: 100%;
+            height: 50vh;
+        }
+        /* ===== CONTENEDOR ===== */
+        .intro {
+            position: fixed;
+            inset: 0;
+            background: url(sources/oscuro.jpg) no-repeat;
+            background-size: cover;
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: introFade 3.5s ease forwards;
+        }
+        h1 {
+          font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        h2 {
+          font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        /* ===== CÍRCULO MÁGICO ===== */
+        .magic-circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: rotateCircle 3s linear infinite;
+        }
+
+        .magic-circle::before {
+            content: "";
+            position: absolute;
+            inset: -15px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+
+        /* ========================
+            SLIDER INTERNO
+        ======================== */
+        .circle {
+            width: 140px;
+            height: 170px;
+            overflow: hidden;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 20;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(6px);
+        }
+
+        .slider {
+            display: flex;
+            width: 630%;
+            height: 100%;
+            animation: slide6 18s infinite;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Cambio automático */
+        @keyframes slide6 {
+            0%   { transform: translateX(0%); }
+            14%  { transform: translateX(0%); }
+
+            16%  { transform: translateX(-100%); }
+            30%  { transform: translateX(-100%); }
+
+            32%  { transform: translateX(-200%); }
+            46%  { transform: translateX(-200%); }
+
+            48%  { transform: translateX(-300%); }
+            62%  { transform: translateX(-300%); }
+
+            64%  { transform: translateX(-400%); }
+            78%  { transform: translateX(-400%); }
+
+            80%  { transform: translateX(-500%); }
+            94%  { transform: translateX(-500%); }
+
+            100% { transform: translateX(0%); }
+        }
+        /* ===== ELEMENTOS ===== */
+        .elements {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            animation: rotateElements 4s linear infinite;
+        }
+
+        .e {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /* COLORES TIPO GENSHIN */
+        .pyro    { background: #ff4b2b; top: 0; left: 50%; }
+        .hydro   { background: #00c3ff; top: 20%; right: 0; }
+        .anemo   { background: #6effc2; bottom: 20%; right: 0; }
+        .electro { background: #b26cff; bottom: 0; left: 50%; }
+        .dendro  { background: #7fff00; bottom: 20%; left: 0; }
+        .cryo    { background: #a0e9ff; top: 20%; left: 0; }
+        .geo     { background: #ffcc66; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* ===== FLASH FINAL ===== */
+        .flash {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: white;
+            border-radius: 50%;
+            animation: flashExpand 52s ease forwards;
+        }
+
+        /* ===== ANIMACIONES ===== */
+
+        @keyframes rotateCircle {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateElements {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(-360deg); }
+        }
+
+        @keyframes flashExpand {
+            0%   { width: 0; height: 0; opacity: 0; }
+            70%  { width: 100px; height: 100px; opacity: 0.7; }
+            100% { width: 2000px; height: 2000px; opacity: 1; }
+        }
+
+        /* DESAPARECE */
+        @keyframes introFade {
+            0%,80% { opacity: 1; }
+            100%   { opacity: 0; visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+  <div class="intro">
+    <div class="magic-circle"></div>
+
+    <div class="circle">
+      <div class="slider">
+        <img src="1.png">
+        <img src="2.png">
+        <img src="3.png">
+        <img src="4.png">
+        <img src="5.png">
+        <img src="6.png">
+      </div>
+    </div>
+
+    <div class="elements">
+        <span class="e pyro"></span>
+        <span class="e hydro"></span>
+        <span class="e anemo"></span>
+        <span class="e electro"></span>
+        <span class="e dendro"></span>
+        <span class="e cryo"></span>
+        <span class="e geo"></span>
+    </div>
+    <div class="flash"></div>
+</div>
+    <!-- Contenido que se revelará -->
+    <section class="section1">
+      <header class="d-flex align-items-center justify-content-between flex-wrap">
+        <img src="genshin.png" alt="Genshin Impact">
+        <img src="elementos.png" class="img-fluid" style="max-width: 800px;">
+        <audio id="miAudio" src="Genshin_Impact.mp3" preload="auto"></audio>
+        <img id="imagenClick" src="pairelax.png" alt="Pulsar" onclick="if(document.getElementById('miAudio').paused){document.getElementById('miAudio').play();this.src='paiyes.png';}else{document.getElementById('miAudio').pause();document.getElementById('miAudio').currentTime=0;this.src='pairelax.png';}" style="cursor: pointer; width:140px;">
+        <a href="arcontes.html" class="btn btn-outline-primary">Los Arcontes</a>
+      </header>
+      <main class="container my-5 p-5">
+        <article class="mb-4">
+          <div class="d-flex align-items-center mb-3">
+            <img src="paimon.png" style="width: 100px;">
+            <h1 class="flex-grow-1 mb-0">Uno de los mejores juegos en linea</h1>
+          </div>
+          <p>
+            Genshin Impact es un RPG de acción gratuito desarrollado por HoYoverse, que presenta un extenso mundo abierto de fantasía en Teyvat. Los jugadores controlan al Viajero, explorando siete naciones vinculadas a los Arcontes elementales mientras luchan contra enemigos con cambios de personaje y reacciones elementales.
+          </p>
+          <h2>Trama del juego</h2>
+          <p>
+            El juego se centra en el combate elemental con siete elementos: Anemo, Geo, Pyro, Hydro, Cryo, Electro y Dendro, que se combinan para generar reacciones como Vaporizar o Congelar. Cada personaje cuenta con una Habilidad Elemental y una Explosión, impulsadas por la energía del combate, además de puzles de exploración y un sistema gacha para nuevos héroes y armas.
+          </p>
+          <p>
+            Teyvat incluye naciones como Mondstadt (Anemo), Liyue (Geo) e Inazuma (Electro), gobernadas por Arcontes con Gnosis vinculadas a Celestia. El Viajero busca a su gemelo perdido en medio de conflictos con la Orden del Abismo y los Heraldos Fatui de Snezhnaya.
+          </p>
+          <a class="btn btn-outline-info" href="https://genshin.hoyoverse.com/es/character/mondstadt?char=0" role="button">Mira los personajes disponibles en el juego</a>
+        </article>
+        <div class="row text-center g-0">
+          <div class="col-12"><h2>¡Vamos!</h2></div>
+          <div class="col-12"><h2>Hay aventuras y experiencias inolvidables</h2></div>
+        </div>
+        <article class="mt-4 text-center">
+          <div class="d-flex align-items-center justify-content-center mb-3">
+            <img src="wow.png" style="width: 100px;">
+            <h1 class="mb-0">Solo disponibles</h1>
+          </div>
+          <img src="Imagen1.png" class="img-fluid mx-auto" style="max-width: 800px;">
+        </article>
+
+        <article class="mt-4" id="resenas">
+          <h2 class="mb-4">Deja tu reseña</h2>
+          <form class="row g-3" id="formResena" onsubmit="return agregarResena(event)">
+            <div class="col-md-6">
+              <label for="nombreResena" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreResena" placeholder="Tu nombre" required>
+            </div>
+            <div class="col-md-6">
+              <label for="calificacionResena" class="form-label">Calificación</label>
+              <select class="form-select" id="calificacionResena" required>
+                <option value="" selected disabled>Elige una puntuación</option>
+                <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                <option value="4">⭐⭐⭐⭐ Muy buena</option>
+                <option value="3">⭐⭐⭐ Buena</option>
+                <option value="2">⭐⭐ Regular</option>
+                <option value="1">⭐ Mala</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="comentarioResena" class="form-label">Comentario</label>
+              <textarea class="form-control" id="comentarioResena" rows="3" placeholder="Cuéntanos tu experiencia con el juego" required></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Publicar reseña</button>
+            </div>
+          </form>
+
+          <hr class="my-4">
+
+          <div class="d-flex align-items-center flex-wrap gap-3 mb-3">
+            <label for="filtroPuntuacion" class="form-label mb-0">Buscar por puntuación mínima:</label>
+            <input type="range" class="form-range flex-grow-1" style="max-width: 300px;" min="1" max="5" step="1" value="1" id="filtroPuntuacion" oninput="filtrarResenas()">
+            <span id="filtroPuntuacionValor" class="text-warning fw-bold">⭐ 1+</span>
+          </div>
+
+          <div id="listaResenas" class="d-flex flex-column gap-3"></div>
+          <p id="sinResenas" class="text-muted d-none">No hay reseñas con esa puntuación.</p>
+        </article>
+      </main>
+      <footer class="text-center py-3">
+        <p></p>
+      </footer>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function agregarResena(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombreResena').value.trim();
+            const calificacion = Number(document.getElementById('calificacionResena').value);
+            const comentario = document.getElementById('comentarioResena').value.trim();
+
+            const tarjeta = document.createElement('div');
+            tarjeta.className = 'card';
+            tarjeta.dataset.calificacion = calificacion;
+            tarjeta.innerHTML = `
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title mb-1"></h5>
+                        <span class="text-warning">${'⭐'.repeat(calificacion)}</span>
+                    </div>
+                    <p class="card-text mb-0"></p>
+                </div>
+            `;
+            tarjeta.querySelector('.card-title').textContent = nombre;
+            tarjeta.querySelector('.card-text').textContent = comentario;
+
+            document.getElementById('listaResenas').prepend(tarjeta);
+            document.getElementById('formResena').reset();
+            filtrarResenas();
+
+            return false;
+        }
+
+        function filtrarResenas() {
+            const minimo = Number(document.getElementById('filtroPuntuacion').value);
+            document.getElementById('filtroPuntuacionValor').textContent = `⭐ ${minimo}+`;
+
+            const tarjetas = document.querySelectorAll('#listaResenas .card');
+            let visibles = 0;
+            tarjetas.forEach(tarjeta => {
+                const coincide = Number(tarjeta.dataset.calificacion) >= minimo;
+                tarjeta.classList.toggle('d-none', !coincide);
+                if (coincide) visibles++;
+            });
+
+            document.getElementById('sinResenas').classList.toggle('d-none', visibles > 0 || tarjetas.length === 0);
+        }
+    </script>
+</body>
+</html>
